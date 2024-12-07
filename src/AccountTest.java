@@ -34,22 +34,21 @@ public class AccountTest {
         scanner.nextLine();
     }
 
-    private static void handleEnter(int keycode) {
-        switch (keycode) {
+    private static void handleEnter(int num) {
+        switch (num) {
             case 1 -> currentAccount = UserInterface.register(accountId);
             // Login
             case 2 -> {
                 currentAccount = UserInterface.login(accountList);
 
             }
-
             case 3 -> System.exit(0);
         }
     }
 
-    private static void handleOperation(int keycode) {
+    private static void handleOperation(int num) {
         double amount;
-        switch (keycode) {
+        switch (num) {
             // Withdraw
             case 1 -> {
                 amount = UserInterface.amountInput("Withdraw");
