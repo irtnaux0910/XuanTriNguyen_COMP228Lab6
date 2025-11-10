@@ -45,42 +45,25 @@ public class UserInterface {
     }
 
     public static Account register(Scanner scanner, int account_id) {
-        // Variables
-        String firstName;
-        String lastName;
-        String email;
-        String password;
-
-        // Form
         clearScreen();
         System.out.print("\n\nRegistration Form" +
                 "\nFirst Name: ");
-        firstName =  scanner.nextLine().trim();
+        String firstName = scanner.nextLine().trim();
         System.out.print("\nLast Name: ");
-        lastName = scanner.nextLine().trim();
-        System.out.print("\nEmail: ");
-        email = scanner.nextLine().trim().toLowerCase();
-        System.out.print("\nPassword: ");
-        password = scanner.nextLine();
+        String lastName = scanner.nextLine().trim();
+        String email = readEmail(scanner);
+        String password = readPassword(scanner);
 
-        // Return
-        return new Account(account_id, firstName, lastName, password, email, 0);
+        return new Account(account_id, firstName, lastName, email, password, 0);
     }
 
     public static Account login(Scanner scanner, ArrayList<Account> accountList) {
-        // Variables
-        String email;
-        String password;
-
-        // Form
         clearScreen();
-        System.out.print("Login Form" +
-                "\nEmail: ");
-        email =  scanner.nextLine().trim().toLowerCase();
-        System.out.print("\nPassword: ");
-        password = scanner.nextLine();
+        System.out.print("Login Form");
+        String email = readEmail(scanner);
+        String password = readPassword(scanner);
 
-        for (Account account : accountList.toArray(new Account[0])) {
+        for (Account account : accountList) {
             if (account.getEmail().equals(email) && account.getPassword().equals(password)) {
                 clearScreen();
                 System.out.println("Login Successful" +
@@ -89,10 +72,17 @@ public class UserInterface {
             }
         }
 
-
         System.out.print("Error: Incorrect email or password");
-
-        // Return
         return null;
+    }
+
+    private static String readEmail(Scanner scanner) {
+        System.out.print("\nEmail: ");
+        return scanner.nextLine().trim().toLowerCase();
+    }
+
+    private static String readPassword(Scanner scanner) {
+        System.out.print("\nPassword: ");
+        return scanner.nextLine();
     }
 }
