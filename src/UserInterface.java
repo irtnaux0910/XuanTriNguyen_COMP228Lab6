@@ -18,8 +18,7 @@ public class UserInterface {
                 "\n3.Logout");
     }
 
-    public static double amountInput(String operationType) {
-        Scanner scanner = new Scanner(System.in);
+    public static double amountInput(Scanner scanner, String operationType) {
         double amount = 0;
         while (true) {
             clearScreen();
@@ -45,13 +44,12 @@ public class UserInterface {
         System.out.flush();
     }
 
-    public static Account register(int account_id) {
+    public static Account register(Scanner scanner, int account_id) {
         // Variables
         String firstName;
         String lastName;
         String email;
         String password;
-        Scanner scanner = new Scanner(System.in);
 
         // Form
         clearScreen();
@@ -69,11 +67,10 @@ public class UserInterface {
         return new Account(account_id, firstName, lastName, password, email, 0);
     }
 
-    public static Account login(ArrayList<Account> accountList) {
+    public static Account login(Scanner scanner, ArrayList<Account> accountList) {
         // Variables
         String email;
         String password;
-        Scanner scanner = new Scanner(System.in);
 
         // Form
         clearScreen();

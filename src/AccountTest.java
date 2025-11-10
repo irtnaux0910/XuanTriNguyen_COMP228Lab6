@@ -9,11 +9,11 @@ public class AccountTest {
     static ArrayList<Account> accountList = new ArrayList<>();
     static Account currentAccount = null;
     static int numOperations = 0;
+    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException, InterruptedException {
         initialize();
         while (true) {
-            Scanner scanner = new Scanner(System.in);
             int input;
             if (currentAccount == null) {
                 UserInterface.showForm();
@@ -30,16 +30,15 @@ public class AccountTest {
         System.out.println("Balance: " + currentAccount);
         System.out.println("Transactions done \nPress ENTER to continue");
 
-        Scanner scanner = new Scanner(System.in);
         scanner.nextLine();
     }
 
     private static void handleEnter(int num) {
         switch (num) {
-            case 1 -> currentAccount = UserInterface.register(accountId);
+            case 1 -> currentAccount = UserInterface.register(scanner, accountId);
             // Login
             case 2 -> {
-                currentAccount = UserInterface.login(accountList);
+                currentAccount = UserInterface.login(scanner, accountList);
 
             }
             case 3 -> System.exit(0);
@@ -51,13 +50,13 @@ public class AccountTest {
         switch (num) {
             // Withdraw
             case 1 -> {
-                amount = UserInterface.amountInput("Withdraw");
+                amount = UserInterface.amountInput(scanner, "Withdraw");
                 currentAccount.setAccountOperation(numOperations, false, amount);
                 numOperations++;
             }
             // Deposit
             case 2 -> {
-                amount = UserInterface.amountInput("Deposit");
+                amount = UserInterface.amountInput(scanner, "Deposit");
                 currentAccount.setAccountOperation(numOperations, true, amount);
                 numOperations++;
             }
@@ -81,15 +80,14 @@ public class AccountTest {
         }
     }
     public static void initialize() {
-        Account account1 = new Account(1, "Xuan Tri", "Nguyen", "nguyenxuantrilop62@gmail.com", "Tri12345", 1000);
-        Account account2 = new Account(2, "John", "Doe", "johndoe@gmail.com", "john123", 500);
-        Account account3 = new Account(3, "Jane", "Smith", "janesmith@gmail.com", "jane456", 2000);
-        Account account4 = new Account(4, "Alice", "Johnson", "alicejohnson@gmail.com", "Alice123", 800);
-        Account account5 = new Account(5, "Bob", "Williams", "bobwilliams@gmail.com", "Bob789", 1500);
-        accountList.add(account1);
-        accountList.add(account2);
-        accountList.add(account3);
-        accountList.add(account4);
-        accountList.add(account5);
+        addAccount(1, "Xuan Tri", "Nguyen", "nguyenxuantrilop62@gmail.com", "Tri12345", 1000);
+        addAccount(2, "John", "Doe", "johndoe@gmail.com", "john123", 500);
+        addAccount(3, "Jane", "Smith", "janesmith@gmail.com", "jane456", 2000);
+        addAccount(4, "Alice", "Johnson", "alicejohnson@gmail.com", "Alice123", 800);
+        addAccount(5, "Bob", "Williams", "bobwilliams@gmail.com", "Bob789", 1500);
+    }
+
+    private static void addAccount(int id, String firstName, String lastName, String email, String password, double balance) {
+        accountList.add(new Account(id, firstName, lastName, email, password, balance));
     }
 }
