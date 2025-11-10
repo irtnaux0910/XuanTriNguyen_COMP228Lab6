@@ -31,8 +31,8 @@ public class Account {
     public void withdraw(double amount) {
         UserInterface.clearScreen();
         if (amount <= balance) {
-            System.out.println(currencyFormatter.format(amount) + "is withdrawn.");
             balance -= amount;
+            printTransactionMessage(amount, "withdrawn");
         } else {
             System.out.println("Insufficient balance.");
         }
@@ -40,8 +40,12 @@ public class Account {
 
     public void deposit(double amount) {
         UserInterface.clearScreen();
-        System.out.println(currencyFormatter.format(amount) + "is deposited.");
         balance += amount;
+        printTransactionMessage(amount, "deposited");
+    }
+
+    private void printTransactionMessage(double amount, String operation) {
+        System.out.println(currencyFormatter.format(amount) + " is " + operation + ".");
     }
 
     public void setAccountOperation(int numOperation, boolean isDeposit, double amount) {
